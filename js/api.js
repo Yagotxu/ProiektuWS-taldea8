@@ -17,6 +17,8 @@ async function bilatuApi(terminoa, mota) {
 
     }
 
+
+    ////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
     //2.Datuak eskatu API-ari deituz
     const response = await fetch (`${API_BASE_URL}${endpoint}`);
 
