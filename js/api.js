@@ -45,7 +45,7 @@ async function bilatuApi(terminoa, mota) {
 
   }catch(err){//Errorea tratatu
 
-    console.error('Errorea bulatuApi() funztioan', err);
+    console.error('Errorea bulatuApi() funztioan', err.message);
 
   }
   
