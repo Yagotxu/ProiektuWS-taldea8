@@ -27,7 +27,7 @@ class Item {
   toXehetasunHTML(){
     return `
     <div class="xehetasun-card">
-      <img src="${this.irudia}" alt="${this.izena}">
+      <img src="${this.irudia}">
       <h4>${this.izena}</h4>
       <p><strong>Etxea:</strong> ${this.etxea}</p>
       <p><strong>Aktorea:</strong> ${this.aktorea}</p>

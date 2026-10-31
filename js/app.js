@@ -106,31 +106,24 @@ const HASIERATZAILEAK = {
       }
 
       // lista azaldu
-      listaDiv.innerHTML = '';
-      datuak.forEach(item => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = item.toHTML();
-        const card = wrapper.firstElementChild;
-
-        //click egitean elementua erakutsi
-        card.addEventListener('click', () => {
-          if (xehetasunakDiv) {
+      listaDiv.innerHTML = datuak.map(item => item.toHTML()).join('')
+      listaDiv.querySelectorAll('.item-card').forEach(card => {
+        card.addEventListener('click',() =>{
+          const id = card.dataset.id
+          const item = datuak.find(i => i.id === id);
+          if(item && xehetasunakDiv){
             xehetasunakDiv.innerHTML = `
-              <div class="xehetasun-card">
-                ${item.irudia ? `<img src="${item.irudia}" alt="${item.izena}" style="max-width: 130px; border-radius: 8px;">` : ''}
+            <div class="xehetasun-card">
                 <h4>${item.izena}</h4>
                 <p><strong>Etxea:</strong> ${item.etxea}</p>
                 <p><strong>Aktorea:</strong> ${item.aktorea}</p>
-                <hr>
                 <p><strong>Balorazioa:</strong> ${item.balorazioa || 0} / 5</p>
                 <p><strong>Iruzkina:</strong> ${item.iruzkina || 'Iruzkinik gabe'}</p>
               </div>
-            `;
+            `
           }
-        });
-
-        listaDiv.appendChild(card);
-      });
+        })
+      })
     }
 
     if (etxeaSelect) etxeaSelect.addEventListener('change', erakutsi);
@@ -155,9 +148,9 @@ const HASIERATZAILEAK = {
 
       // pertsonai bakoitzeko botoia ezabatzeko indibidualki
       listaDiv.innerHTML = datuak.map(item => `
-        <div class="kudeatu-elementua" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
-          <span><strong>${item.izena}</strong> (${item.etxea})</span>
-          <button class="botoia-ezabatu" data-id="${item.id}">Ezabatu</button>
+        <div class="kudeatu-elementua">
+        <span><strong>${item.izena}</strong> (${item.etxea})</span>
+        <button class="botoia-ezabatu" data-id="${item.id}">Ezabatu</button>
         </div>
       `).join('');
 
@@ -166,7 +159,7 @@ const HASIERATZAILEAK = {
         btn.addEventListener('click', (e) => {
           const id = e.target.dataset.id;
           
-          // Confirmación nativa antes de borrar un personaje
+          //Confirmar antes
           if (confirm('Ziur zaude pertsonaia hau ezabatu nahi duzula?')) {
             bildumaStorage.ezabatu(id); 
             erakutsi();                 
@@ -178,7 +171,7 @@ const HASIERATZAILEAK = {
     // Bilduma-hustu botoia entzun 
     if (hustuBtn) {
       hustuBtn.addEventListener('click', () => {
-        // Confirmación nativa antes de vaciar toda la colección
+        // Confirmar antes de borrar
         if (confirm('Ziur zaude bilduma osoa hustu nahi duzula?')) {
           bildumaStorage.hustu(); 
           erakutsi();             
