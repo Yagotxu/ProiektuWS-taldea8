@@ -11,12 +11,12 @@ class bildumaStorage {
   static gorde(item) {
     //Gordetzen edo berridazten du elementu bat localStoregen
     const lista = this.denakLortu()
-    const index = lista.findIndex(i => i.id === item.id)
-    if(index !== -1){
-      lista[index]= item.toStorageObject()
-    }else{
-      lista.push(item.toStorageObject())
+    let obj = item;
+    if (item.toStorageObject) {
+    obj = item.toStorageObject();
     }
+    lista.push(obj);
+    localStorage.setItem(BILDUMA_GAKOA, JSON.stringify(lista));
   }
 
   static itemBezalaLortu() {

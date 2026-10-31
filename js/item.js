@@ -24,6 +24,34 @@ class Item {
       </div>
     `;
   }
+  toXehetasunHTML(){
+    return `
+    <div class="xehetasun-card">
+      <img src="${this.irudia}" alt="${this.izena}">
+      <h4>${this.izena}</h4>
+      <p><strong>Etxea:</strong> ${this.etxea}</p>
+      <p><strong>Aktorea:</strong> ${this.aktorea}</p>
+      
+      <label for="balorazioa-select">Balorazioa (1-5):</label>
+      <select id="balorazioa-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option>
+      </select>
+
+      <br><br>
+
+      <label for="iruzkina-input">Iruzkina:</label><br>
+      <textarea id="iruzkina-input" placeholder="Idatzi iruzkina..."></textarea>
+
+      <br><br>
+
+      <button id="btn-gorde-bilduma">Gehitu bildumara</button>
+    </div>
+  `;
+  }
 
   toStorageObject() {//atributuak "empaketatu"
       const obj = {
@@ -44,8 +72,8 @@ class Item {
     const item = new Item({//objetutik balioak atera item baten barruan
      
       id:obj.id,
-      izena:obj.izena,
-      irudia:obj.irudia,
+      name:obj.izena,
+      image:obj.irudia,
       etxea:obj.etxea,
       aktorea:obj.aktorea
 

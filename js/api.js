@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://hp-api.onrender.com/';
+const API_BASE_URL = 'https://hp-api.onrender.com/api';
 
 async function bilatuApi(terminoa, mota) {
 
