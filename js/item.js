@@ -1,15 +1,15 @@
 class Item {
   constructor(ApiDatuak) {
     this.id = ApiDatuak.id;
-    this.izena = ApiDatuak.name;
-    this.irudia = ApiDatuak.image;
+    this.izena = ApiDatuak.name || ApiDatuak.izena;
+    this.irudia = ApiDatuak.image || ApiDatuak.irudia;
 
-    this.etxea= ApiDatuak.house || "Ezezaguna";//gure APi-a gauza gehiago itzultzen dizkigu
-    this.aktorea = ApiDatuak.actor || "Ezezaguna"
+    this.etxea= ApiDatuak.house || ApiDatuak.etxea ||"Ezezaguna";//gure APi-a gauza gehiago itzultzen dizkigu
+    this.aktorea = ApiDatuak.actor || ApiDatuak.aktorea || "Ezezaguna"
 
-    this.balorazioa = null;
-    this.iruzkina = '';
-    this.gordetakoData = null;
+    this.balorazioa = ApiDatuak.balorazioa ||null;
+    this.iruzkina = ApiDatuak.iruzkina || '';
+    this.gordetakoData = ApiDatuak.gordetakoData|| null;
   }
 
   toHTML() {//Sortutako elementua html batean bihurtu

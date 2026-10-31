@@ -138,8 +138,58 @@ const HASIERATZAILEAK = {
 
     erakutsi();
   },
-  kudeatuBilduma: () => {}
-};
+  kudeatuBilduma: () => {
+    const listaDiv = document.getElementById('lista-kudeatu');
+    const hustuBtn = document.getElementById('botoia-hustu');
+
+    if (!listaDiv) return;
+
+    
+    function erakutsi() {
+      const datuak = bildumaStorage.itemBezalaLortu();
+
+      if (datuak.length === 0) {
+        listaDiv.innerHTML = '<p>Oraindik ez du item-ik gorde.</p>';
+        return;
+      }
+
+      // pertsonai bakoitzeko botoia ezabatzeko indibidualki
+      listaDiv.innerHTML = datuak.map(item => `
+        <div class="kudeatu-elementua" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
+          <span><strong>${item.izena}</strong> (${item.etxea})</span>
+          <button class="botoia-ezabatu" data-id="${item.id}">Ezabatu</button>
+        </div>
+      `).join('');
+
+      // indibidual ezabatzeko botoia entzun
+      listaDiv.querySelectorAll('.botoia-ezabatu').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.dataset.id;
+          
+          // Confirmación nativa antes de borrar un personaje
+          if (confirm('Ziur zaude pertsonaia hau ezabatu nahi duzula?')) {
+            bildumaStorage.ezabatu(id); 
+            erakutsi();                 
+          }
+        });
+      });
+    }
+
+    // Bilduma-hustu botoia entzun 
+    if (hustuBtn) {
+      hustuBtn.addEventListener('click', () => {
+        // Confirmación nativa antes de vaciar toda la colección
+        if (confirm('Ziur zaude bilduma osoa hustu nahi duzula?')) {
+          bildumaStorage.hustu(); 
+          erakutsi();             
+        }
+      });
+    }
+
+    
+    erakutsi();
+ }
+}
 
 async function atalaKargatu(izena) {
   const edukiontzia = document.getElementById(`atala-${izena}`);
@@ -184,7 +234,9 @@ function erakutsiAtala(izena) {
   );
 
   if (boton) boton.classList.add('active');
-  
+  if (HASIERATZAILEAK[izena]) {
+    HASIERATZAILEAK[izena]();
+  }
 }
 
 
