@@ -1,4 +1,4 @@
-const ATALAK = ['hasiera', 'bilatzaile', 'bilduma', 'kudeatuBilduma'];
+const ATALAK = ['hasiera', 'bilatzaile', 'bilduma', 'kudeatuBilduma', 'estatistikak'];
 
 const HASIERATZAILEAK = {
   bilatzaile: () => {
@@ -182,6 +182,43 @@ const HASIERATZAILEAK = {
     
     erakutsi();
  }
+
+  ,
+  estatistikak:() =>{
+    const datuak = bildumaStorage.itemBezalaLortu();
+    const guztiraP = document.getElementById('stat-guztira')
+    const mediaP = document.getElementById('stat-media')
+    const etxeakDiv = document.getElementById('stat-etxeak')
+
+    if(!guztiraP) return;
+    if(datuak.length === 0){
+      guztiraP.textContent = 'Guztira: 0 pertsonaia'
+      mediaP.textContent = 'Bataz besteko balorazioa: 0/5'
+    }
+
+    guztiraP.textContent = `Guztira: ${datuak.length} pertsonaia bilduman`;
+
+    const batura = datuak.reduce((acc, item) => acc + (item.balorazioa || 0),0)
+    const media = (batura / datuak.length)
+    mediaP.textContent =`Batez besteko balorazioa: ${media} / 5`
+
+    //etxe bakoitzeko zenbat pertsonai dauden
+    const etxebanaketa = datuak.reduce((acc,item) => {
+      const etxea = item.etxea || 'Ezezaguna'
+      //etxea ez baldin badago acc-an hasieratzen da 0 balioarekin
+      if(!acc[etxea]){
+        acc[etxea]=0
+      }
+      acc[etxea] = acc[etxea] + 1
+      return acc
+    }, {})
+    let html=''
+    for(let etxea in etxebanaketa){
+      let kopurua = etxebanaketa[etxea]
+      html +=`<p>${etxea}:${kopurua} pertsonaia daude.`
+    }
+    etxeakDiv.innerHTML=html;
+  }
 }
 
 async function atalaKargatu(izena) {
@@ -198,6 +235,7 @@ async function atalaKargatu(izena) {
     edukiontzia.innerHTML = '<p>Atal hau kargatzean errorea suertatu da.</p>';
     console.error(error);
   }
+
 }
 
 function erakutsiAtala(izena) {
