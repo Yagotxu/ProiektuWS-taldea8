@@ -8,6 +8,22 @@ const HASIERATZAILEAK = {
     const emaitzakDiv = document.getElementById('emaitzak-bilaketa');
     const xehetasunakDiv = document.getElementById('xehetasunak-item');
     const motaSelect = document.getElementById('mota-select')
+    const harritu = document.getElementById('botoia-harritu')
+
+    if(harritu) {
+      harritu.onclick = async () =>{
+        const res = await fetch('characters.json')
+        const datuak = await res.json()
+
+        //Auzas lortu indizea eta indize horren pertsonaia lortu
+        const indizea = Math.floor(Math.random() * datuak.length)
+        const pertsonaia = datuak[indizea]
+        //Pertsonai berria gorde eta alerta jarri
+        const berria = new Item(pertsonaia)
+        bildumaStorage.gorde(berria)
+        alert(berria.izena + ' bildumara gehitu da')
+      }
+    }
 
     if(!form) return;
     form.addEventListener('submit', async (event) => {
