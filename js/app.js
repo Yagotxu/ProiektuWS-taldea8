@@ -1,4 +1,4 @@
-const ATALAK = ['hasiera', 'bilatzaile', 'bilduma', 'kudeatuBilduma', 'estatistikak'];
+const ATALAK = ['hasiera', 'bilatzaile', 'bilduma', 'kudeatuBilduma', 'estatistikak', 'ezarpenak'];
 
 const HASIERATZAILEAK = {
   bilatzaile: () => {
@@ -219,6 +219,24 @@ const HASIERATZAILEAK = {
       html +=`<p>${etxea}:${kopurua} pertsonaia daude.`
     }
     etxeakDiv.innerHTML=html;
+  },
+  ezarpenak:()=>{
+    const x = document.getElementById("mode")
+    if(!mode) return
+    if(localStorage.getItem('gaia') === 'iluna'){
+      x.checked = true
+    }else{
+      x.checked = false
+    }
+    x.onchange = () =>{
+      if(x.checked){
+        document.body.classList.add('modu-iluna')
+        localStorage.setItem('gaia', 'iluna')
+      }else{
+        document.body.classList.remove('modu-iluna')
+        localStorage.setItem('gaia', 'argia')
+      }
+    }
   }
 }
 
@@ -298,5 +316,9 @@ document.getElementById('menu-nagusia').addEventListener('click', (event) => {
   console.log('Botón pulsado:', boton.dataset.seccion);
   erakutsiAtala(boton.dataset.seccion);
 });
+
+if(localStorage.getItem('gaia')==='iluna'){
+  document.body.classList.add('modu-iluna')
+}
 
 jaurtiApp();

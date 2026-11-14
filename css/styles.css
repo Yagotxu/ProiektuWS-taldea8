@@ -110,6 +110,11 @@ main {
   margin-top: 0;
 }
 
+body.modu-iluna{
+  background-color: #1a1a1a;
+   color: white;
+}
+
 @media (max-width: 800px) {
   #biltegi-nagusia {
     flex-direction: column;
