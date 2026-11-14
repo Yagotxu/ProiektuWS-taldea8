@@ -7,6 +7,7 @@ const HASIERATZAILEAK = {
     const egoera = document.getElementById('egoera-bilatzen');
     const emaitzakDiv = document.getElementById('emaitzak-bilaketa');
     const xehetasunakDiv = document.getElementById('xehetasunak-item');
+    const motaSelect = document.getElementById('mota-select')
 
     if(!form) return;
     form.addEventListener('submit', async (event) => {
@@ -14,8 +15,11 @@ const HASIERATZAILEAK = {
       const terminoa = input.value.trim();
       egoera.textContent = 'Bilatzen...';
       emaitzakDiv.innerHTML = '';
-
-      const datuak = await bilatuApi(terminoa);
+      let mota = 'characters'
+      if (motaSelect){
+        mota = motaSelect.value
+      }
+      const datuak = await bilatuApi(terminoa, mota);
 
       if (!datuak || datuak.length === 0) {
         egoera.textContent = 'Ez da pertsonaiarik aurkitu.';
@@ -155,28 +159,25 @@ const HASIERATZAILEAK = {
       `).join('');
 
       // indibidual ezabatzeko botoia entzun
-      listaDiv.querySelectorAll('.botoia-ezabatu').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const id = e.target.dataset.id;
-          
-          //Confirmar antes
-          if (confirm('Ziur zaude pertsonaia hau ezabatu nahi duzula?')) {
-            bildumaStorage.ezabatu(id); 
-            erakutsi();                 
+      listaDiv.querySelectorAll('.botoia-ezabatu').forEach(botoia => {
+        botoia.onclick = () => {
+          const id = botoia.dataset.id;
+          if (confirm('Ziur zaude hau ezabatu nahi duzula?')) {
+            bildumaStorage.ezabatu(id);
+            erakutsi(); 
           }
-        });
-      });
+        }
+      })
     }
-
+    
     // Bilduma-hustu botoia entzun 
     if (hustuBtn) {
-      hustuBtn.addEventListener('click', () => {
-        // Confirmar antes de borrar
+      hustuBtn.onclick =() =>{
         if (confirm('Ziur zaude bilduma osoa hustu nahi duzula?')) {
           bildumaStorage.hustu(); 
           erakutsi();             
         }
-      });
+      };
     }
 
     

@@ -1,8 +1,8 @@
 class Item {
   constructor(ApiDatuak) {
     this.id = ApiDatuak.id;
-    this.izena = ApiDatuak.name || ApiDatuak.izena;
-    this.irudia = ApiDatuak.image || ApiDatuak.irudia;
+    this.izena = ApiDatuak.name || ApiDatuak.izena || "Ezezaguna";
+    this.irudia = ApiDatuak.image || ApiDatuak.irudia || "";
 
     this.etxea= ApiDatuak.house || ApiDatuak.etxea ||"Ezezaguna";//gure APi-a gauza gehiago itzultzen dizkigu
     this.aktorea = ApiDatuak.actor || ApiDatuak.aktorea || "Ezezaguna"

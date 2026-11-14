@@ -28,8 +28,8 @@ class bildumaStorage {
   static ezabatu(id) {
     //Pertsonai bat ezabatzen du bere IDa-ren bidez
     const lista = this.denakLortu()
-    const filtratua = lista.filter(item => item.id !==id);
-    localStorage.setItem(BILDUMA_GAKOA, JSON.stringfy(filtratua))
+    const filtratua = lista.filter(item => (item.id !== id))
+    localStorage.setItem(BILDUMA_GAKOA, JSON.stringify(filtratua))
   }
 
   static hustu() {
