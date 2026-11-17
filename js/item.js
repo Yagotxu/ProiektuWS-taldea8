@@ -18,7 +18,7 @@ class Item {
         <img src="${this.irudia}" alt="${this.izena}">
         <div class="item-info">
           <h3>${this.izena}</h3>
-          <p><strong> Etxea: </strong> ${this.etxea}</p>//etxea eta aktorearen izeank erakutsi
+          <p><strong> Etxea: </strong> ${this.etxea}</p>
           <p><strong> Aktorea: </strong> ${this.aktorea}</p>
         </div>
       </div>
