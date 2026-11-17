@@ -3,7 +3,8 @@
 <section id="bilaketa" class="panel">
   <h3>Bilaketa</h3>
   <form id="form-bilatzaile">
-    <input type="text" id="input-bilaketa" autocomplete="off" placeholder="Bilatzen...">
+    <input type="text" id="input-bilaketa" list="historiala-iradokizunak" placeholder="Bilatzen...">
+    <datalist id="historiala-iradokizunak"></datalist>
     <button type="submit">Bilatu</button>
   </form>
    <label for="mota-select">Mota:</label>
@@ -13,6 +14,10 @@
   </select>
   <button id="botoia-harritu">Harritu nazazu</button>
   <p id="egoera-bilatzen"></p>
+  <div id="historiala-bilaketa">
+    <h4>Azken bilaketak</h4>
+    <ul id="zerrenda-bilaketa-historia"></ul>
+  </div>
 </section>
 
 <div class="bilatzaile-edukia">
