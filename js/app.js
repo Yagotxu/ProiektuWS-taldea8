@@ -9,36 +9,7 @@ const HASIERATZAILEAK = {
     const xehetasunakDiv = document.getElementById('xehetasunak-item');
     const motaSelect = document.getElementById('mota-select')
     const harritu = document.getElementById('botoia-harritu')
-    const iradokizunak = document.getElementById('historiala-iradokizunak');
-    const historiaZerrenda = document.getElementById('zerrenda-bilaketa-historia');
-    const historiaGakoa = 'bilaketa-historia';
-    const historia = JSON.parse(localStorage.getItem(historiaGakoa) || '[]');
-
-    function historiaErakutsi() {
-      if (iradokizunak) {
-        iradokizunak.innerHTML = '';
-        [...new Set(historia.map(bilaketa => bilaketa.terminoa))]
-          .forEach(terminoa => {
-            const aukera = document.createElement('option');
-            aukera.value = terminoa;
-            iradokizunak.appendChild(aukera);
-          });
-      }
-
-      if (historiaZerrenda) {
-        historiaZerrenda.innerHTML = '';
-        historia.forEach(bilaketa => {
-          const item = document.createElement('li');
-          const data = new Date(bilaketa.data);
-          const mota = bilaketa.mota === 'characters' ? 'Pertsonaia' : bilaketa.mota;
-          item.textContent = `${bilaketa.terminoa} (${mota}) - ${data.toLocaleString()}`;
-          historiaZerrenda.appendChild(item);
-        });
-      }
-    }
-
-    historiaErakutsi();
-
+  
     if(harritu) {
       harritu.onclick = async () =>{
         const res = await fetch('characters.json')
@@ -64,11 +35,7 @@ const HASIERATZAILEAK = {
       if (motaSelect){
         mota = motaSelect.value
       }
-      if (terminoa) {
-        historia.unshift({ terminoa, mota, data: new Date().toISOString() });
-        localStorage.setItem(historiaGakoa, JSON.stringify(historia));
-        historiaErakutsi();
-      }
+      
       const datuak = await bilatuApi(terminoa, mota);
 
       if (!datuak || datuak.length === 0) {
