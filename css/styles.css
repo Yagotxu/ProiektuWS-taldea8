@@ -1,59 +1,217 @@
+:root {
+  color-scheme: light;
+  --page: #f1ebf8;
+  --surface: rgb(255 250 240 / 92%);
+  --surface-raised: rgb(255 253 248 / 95%);
+  --text: #282039;
+  --muted: #706782;
+  --line: #e4d7bd;
+  --green: #7650a5;
+  --green-deep: #342249;
+  --gold: #d7aa55;
+  --shadow: 0 14px 34px rgb(52 34 73 / 10%);
+  --scene-image: url("https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/CS_p2.196_-_Alnwick_Castle%2C_Northumberland_-_Morris%27s_County_Seats%2C_1868.jpg/1920px-CS_p2.196_-_Alnwick_Castle%2C_Northumberland_-_Morris%27s_County_Seats%2C_1868.jpg");
+  --scene-overlay: rgb(255 248 225 / 10%);
+  --scene-size: max(160vw, 160vh) auto;
+  --scene-position: center 44%;
+  --sky-decoration:
+    radial-gradient(circle at 82% 18%, rgb(255 224 145 / 82%) 0 38px, rgb(255 224 145 / 22%) 39px 62px, transparent 63px),
+    radial-gradient(ellipse at 27% 25%, rgb(255 255 255 / 35%) 0 3%, transparent 12%),
+    radial-gradient(ellipse at 40% 28%, rgb(255 255 255 / 28%) 0 4%, transparent 14%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: sans-serif;
-  margin: 0;
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
+  margin: 0;
   display: flex;
   flex-direction: column;
+  background:
+    radial-gradient(ellipse at 90% 4%, rgb(220 184 255 / 28%), transparent 30rem),
+    radial-gradient(ellipse at 5% 60%, rgb(206 183 239 / 18%), transparent 26rem),
+    radial-gradient(ellipse at 75% 15%, rgb(255 246 217 / 28%), transparent 24rem),
+    var(--page);
+  color: var(--text);
+  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+  line-height: 1.6;
+}
+
+body::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background: var(--sky-decoration);
+  content: "";
+  pointer-events: none;
+}
+
+body::after {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(var(--scene-overlay), var(--scene-overlay)),
+    var(--scene-image);
+  background-position: center, var(--scene-position);
+  background-size: cover, var(--scene-size);
+  content: "";
+  pointer-events: none;
 }
 
 #goiburua {
-  padding: 16px;
-  border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: 28px clamp(20px, 5vw, 64px);
+  border-bottom: 3px solid var(--gold);
+  background:
+    radial-gradient(circle at 82% 30%, rgb(255 244 197 / 86%) 0 42px, rgb(255 226 153 / 27%) 43px 70px, transparent 71px),
+    radial-gradient(ellipse at 76% 100%, rgb(255 255 255 / 30%), transparent 27rem),
+    linear-gradient(115deg, #f3d9b6, #e8c6df 52%, #bdb2df);
+  color: #342249;
+}
+
+#goiburua::after {
+  position: absolute;
+  top: -72px;
+  right: 7%;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgb(182 132 66 / 35%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgb(255 249 221 / 55%), rgb(255 223 160 / 12%) 54%, transparent 69%);
+  box-shadow:
+    0 0 30px rgb(231 181 94 / 32%),
+    0 0 0 24px rgb(255 255 255 / 13%),
+    0 0 0 50px rgb(255 255 255 / 8%);
+  content: "";
+  pointer-events: none;
 }
 
 #goiburua h1 {
+  position: relative;
+  z-index: 1;
   margin: 0;
-  font-size: 1.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: 0.035em;
+}
+
+#goiburua h1::before {
+  margin-right: 12px;
+  color: #b47a2c;
+  content: "✦";
+  text-shadow: 0 0 14px rgb(241 204 120 / 65%);
 }
 
 #biltegi-nagusia {
+  position: relative;
+  z-index: 1;
   flex: 1;
   display: flex;
+  width: min(100%, 1600px);
+  margin: 0 auto;
 }
 
 #menu-nagusia {
   display: flex;
+  flex: 0 0 248px;
   flex-direction: column;
-  gap: 8px;
-  width: 200px;
-  flex-shrink: 0;
-  padding: 16px;
-  border-right: 1px solid #ccc;
+  gap: 7px;
+  padding: 30px 18px;
+  border-right: 1px solid var(--line);
+  background: rgb(255 250 240 / 76%);
 }
 
 #menu-nagusia button {
-  padding: 8px;
+  position: relative;
+  padding: 11px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
   text-align: left;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+#menu-nagusia button::before {
+  margin-right: 9px;
+  color: #b6a2c9;
+  content: "✧";
+  font-size: 0.9em;
+}
+
+#menu-nagusia button:hover {
+  transform: translateX(2px);
+  background: rgb(118 80 165 / 9%);
+  color: var(--green-deep);
 }
 
 #menu-nagusia button.active {
-  font-weight: bold;
-  text-decoration: underline;
+  border-color: rgb(118 80 165 / 18%);
+  background: linear-gradient(105deg, #eee5f7, #fff8e7);
+  color: var(--green-deep);
+  box-shadow: inset 3px 0 var(--gold), 0 4px 14px rgb(52 34 73 / 7%);
+}
+
+#menu-nagusia button.active::before {
+  color: #b5822d;
+  content: "✦";
 }
 
 main {
   flex: 1;
-  padding: 16px;
+  min-width: 0;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.atala > h2 {
+  position: relative;
+  margin: 0 0 22px;
+  color: var(--green-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+}
+
+.atala > h2::after {
+  display: block;
+  width: min(100%, 240px);
+  height: 2px;
+  margin-top: 9px;
+  background: linear-gradient(90deg, var(--gold), rgb(215 170 85 / 0%));
+  content: "";
 }
 
 #oina {
-  padding: 12px 16px;
-  border-top: 1px solid #ccc;
+  position: relative;
+  z-index: 1;
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.88rem;
   text-align: center;
 }
 
 #oina p {
   margin: 0;
+}
+
+#oina .credito-fondo {
+  margin-top: 4px;
+  font-size: 0.75rem;
+}
+
+#oina a {
+  color: var(--green-deep);
 }
 
 .atala {
@@ -62,37 +220,131 @@ main {
 
 .atala.aktiboa {
   display: block;
+  animation: agertu 260ms ease both;
+}
+
+@keyframes agertu {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel,
+.ezarpen-panela {
+  padding: 22px;
+  border: 1px solid #e6d5b3;
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(215 170 85 / 8%), transparent 45%),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.panel h3,
+.ezarpen-panela h3 {
+  margin: 0 0 16px;
+  color: var(--green-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+}
+
+#atala-hasiera .panel {
+  min-height: 180px;
+  padding: clamp(24px, 5vw, 44px);
+  border: 1px solid #e1c98f;
+  border-left: 5px solid var(--gold);
+  box-shadow: inset 0 0 36px rgb(215 170 85 / 8%), var(--shadow);
+  background:
+    radial-gradient(circle at 92% 20%, rgb(118 80 165 / 9%) 0 2px, transparent 3px),
+    radial-gradient(circle at 88% 30%, rgb(215 170 85 / 28%) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 100% 0%, rgb(215 170 85 / 14%), transparent 60%),
+    var(--surface);
+  font-size: 1.1rem;
+}
+
+#atala-hasiera .panel p {
+  max-width: 760px;
+  margin: 0;
 }
 
 .item-card {
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
   padding: 12px;
-  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid #e5d8c0;
+  border-radius: 13px;
+  background: var(--surface-raised);
   cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.item-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgb(87 57 118 / 18%), 0 0 0 2px rgb(215 170 85 / 18%);
 }
 
 .item-card img {
-  max-width: 100%;
-  height: auto;
+  flex: 0 0 88px;
+  width: 88px;
+  height: 106px;
+  border: 1px solid rgb(215 170 85 / 45%);
+  border-radius: 9px;
+  background: var(--page);
+  object-fit: cover;
+}
+
+.item-info {
+  min-width: 0;
+}
+
+.item-info h3 {
+  margin: 0 0 6px;
+  color: var(--green-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  text-shadow: 0 1px rgb(215 170 85 / 24%);
+}
+
+.item-info p,
+.xehetasun-card p {
+  margin: 4px 0;
+  color: var(--muted);
 }
 
 .item-card.hautatua {
-  outline: 2px solid #00a870;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+#emaitzak-bilaketa,
+#lista-bilduma {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 14px;
+}
+
+#emaitzak-bilaketa > p,
+#lista-bilduma > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
 }
 
 .bilatzaile-edukia,
 .bilduma-edukiak {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.9fr);
+  gap: 22px;
   align-items: start;
 }
 
 #bilaketa,
 #bilduma-kontrolak,
-#ekintzak-kudeatu{
-  margin-bottom: 24px;
+#ekintzak-kudeatu {
+  margin-bottom: 22px;
 }
 
 #egoera-bilatzen:empty,
@@ -100,36 +352,374 @@ main {
   display: none;
 }
 
-.panel {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 12px;
+#egoera-bilatzen {
+  color: var(--green);
+  font-weight: 600;
 }
 
-.panel h3 {
-  margin-top: 0;
+#historiala-bilaketa {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
 }
 
-body.modu-iluna{
-  background-color: #1a1a1a;
-   color: white;
+#historiala-bilaketa h4 {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
-@media (max-width: 800px) {
+#zerrenda-bilaketa-historia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#zerrenda-bilaketa-historia li {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--page);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.xehetasun-card {
+  overflow-wrap: anywhere;
+}
+
+.xehetasun-card > img {
+  display: block;
+  width: min(100%, 240px);
+  max-height: 280px;
+  margin: 0 auto 16px;
+  border-radius: 12px;
+  background: var(--page);
+  object-fit: cover;
+}
+
+.xehetasun-card h4 {
+  margin: 0 0 12px;
+  color: var(--green-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+input,
+select,
+textarea {
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid #cbd3ca;
+  border-radius: 9px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--green);
+  outline: 3px solid rgb(36 92 73 / 14%);
+}
+
+#input-bilaketa {
+  flex: 1 1 220px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+}
+
+button:not(#menu-nagusia button) {
+  min-height: 40px;
+  padding: 9px 15px;
+  border: 1px solid #66418e;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #8058ab, #604080);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+button:not(#menu-nagusia button):hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #9069b8, #704a91);
+  box-shadow: 0 4px 14px rgb(87 57 118 / 22%);
+}
+
+#botoia-harritu {
+  margin-left: 8px;
+  border-color: #c49a49;
+  background: linear-gradient(135deg, #f8edce, #e9d39f);
+  color: #563a19;
+  box-shadow: 0 3px 12px rgb(197 154 74 / 16%);
+}
+
+#botoia-harritu:hover {
+  background: linear-gradient(135deg, #ffefc3, #e5c779);
+}
+
+#bilduma-kontrolak {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+#bilduma-kontrolak label {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+#bilduma-kontrolak select {
+  margin-right: 10px;
+}
+
+#lista-kudeatu {
+  display: grid;
+  gap: 10px;
+}
+
+.kudeatu-elementua {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-raised);
+}
+
+.botoia-ezabatu {
+  flex: 0 0 auto;
+  border-color: #a33d3d !important;
+  background: #a33d3d !important;
+}
+
+#stat-guztira,
+#stat-media {
+  display: inline-flex;
+  margin: 0 10px 16px 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #eee5f7, #fff4d9);
+  color: var(--green-deep);
+  font-weight: 700;
+}
+
+#stat-etxeak {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+#stat-etxeak p {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-raised);
+}
+
+.ezarpen-panela {
+  max-width: 560px;
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.switch-label input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--green);
+}
+
+body.modu-iluna {
+  color-scheme: dark;
+  --page: #171222;
+  --surface: rgb(36 29 49 / 92%);
+  --surface-raised: rgb(46 38 60 / 95%);
+  --text: #f2ecfa;
+  --muted: #c0b5d0;
+  --line: #493d5c;
+  --green: #9c78c5;
+  --green-deep: #eddefd;
+  --gold: #e3bd6e;
+  --shadow: 0 14px 34px rgb(0 0 0 / 24%);
+  --scene-image: url("https://upload.wikimedia.org/wikipedia/commons/1/16/Abraham_Pether_%281756-1812%29_-_View_of_Pendragon_Castle_by_Moonlight_-_960239_-_National_Trust.jpg");
+  --scene-overlay: rgb(14 10 24 / 52%);
+  --scene-size: cover;
+  --scene-position: center 58%;
+  --sky-decoration:
+    radial-gradient(circle at 82% 18%, rgb(255 240 190 / 75%) 0 32px, rgb(255 240 190 / 14%) 33px 52px, transparent 53px),
+    radial-gradient(circle at 18% 22%, rgb(255 255 255 / 90%) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 14%, rgb(255 255 255 / 80%) 0 1px, transparent 2px),
+    radial-gradient(circle at 64% 30%, rgb(255 255 255 / 75%) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 42%, rgb(255 255 255 / 80%) 0 1px, transparent 2px);
+  background:
+    radial-gradient(ellipse at 82% 0%, rgb(124 83 165 / 20%), transparent 32rem),
+    radial-gradient(circle, rgb(255 246 204 / 40%) 1px, transparent 1.5px) 0 0 / 38px 38px,
+    var(--page);
+}
+
+body.modu-iluna #menu-nagusia {
+  background: rgb(36 29 49 / 86%);
+}
+
+body.modu-iluna #menu-nagusia button.active,
+body.modu-iluna #stat-guztira,
+body.modu-iluna #stat-media {
+  background: #3a2d4d;
+  color: #f0e5fc;
+}
+
+body.modu-iluna #botoia-harritu {
+  background: linear-gradient(135deg, #584523, #45351f);
+  color: #f7e5b7;
+}
+
+body.modu-iluna #botoia-harritu:hover {
+  background: linear-gradient(135deg, #6b542b, #554123);
+}
+
+body.modu-iluna #goiburua {
+  color: #fffdf5;
+  background:
+    radial-gradient(ellipse at 82% 30%, rgb(194 147 255 / 19%), transparent 28rem),
+    radial-gradient(circle, rgb(255 246 204 / 72%) 1px, transparent 1.5px) 0 0 / 42px 42px,
+    linear-gradient(115deg, #211632, #38234f 55%, #50356b);
+}
+
+body.modu-iluna #goiburua::after {
+  border-color: rgb(245 217 151 / 50%);
+  background: radial-gradient(circle at 35% 35%, rgb(255 246 204 / 20%), transparent 68%);
+  box-shadow:
+    0 0 24px rgb(233 196 109 / 20%),
+    0 0 0 24px rgb(255 255 255 / 4%),
+    0 0 0 50px rgb(255 255 255 / 3%);
+}
+
+body.modu-iluna #goiburua h1::before {
+  color: #f1cc78;
+}
+
+body.modu-iluna #atala-hasiera .panel {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(227 189 110 / 10%), transparent 60%),
+    var(--surface);
+}
+
+@media (max-width: 850px) {
+  #menu-nagusia {
+    flex-basis: 210px;
+    padding-inline: 12px;
+  }
+
+  .bilatzaile-edukia,
+  .bilduma-edukiak {
+    grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.9fr);
+    gap: 14px;
+  }
+
+  .panel,
+  .ezarpen-panela {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 680px) {
   #biltegi-nagusia {
     flex-direction: column;
   }
 
   #menu-nagusia {
-    width: auto;
+    flex: none;
     flex-direction: row;
-    flex-wrap: wrap;
-    border-right: none;
-    border-bottom: 1px solid #ccc;
+    gap: 6px;
+    padding: 10px 14px;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #menu-nagusia button {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    white-space: nowrap;
+  }
+
+  #menu-nagusia button:hover {
+    transform: none;
+  }
+
+  #menu-nagusia button.active {
+    box-shadow: inset 0 -3px var(--gold);
+  }
+
+  main {
+    padding: 22px 16px;
   }
 
   .bilatzaile-edukia,
   .bilduma-edukiak {
     grid-template-columns: 1fr;
+  }
+
+  .item-card img {
+    flex-basis: 72px;
+    width: 72px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 420px) {
+  #bilaketa,
+  #bilduma-kontrolak {
+    align-items: stretch;
+  }
+
+  #bilaketa > label,
+  #bilduma-kontrolak label {
+    flex-basis: 100%;
+  }
+
+  #botoia-harritu {
+    margin-left: 0;
+  }
+
+  .kudeatu-elementua {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
